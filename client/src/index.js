@@ -1,24 +1,18 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import * as ReactDOMClient from 'react-dom/client';
+import { BrowserRouter as Router } from "react-router-dom";
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
-import "./styles/globals.css";
+import { ChakraProvider } from '@chakra-ui/react';
+import App from "./App";
 
-// This is the chainId your dApp will work on.
-const activeChainId = ChainId.Mainnet;
+const root = ReactDOMClient.createRoot(document.getElementById('root'));
 
-const container = document.getElementById("root");
-const root = createRoot(container);
 root.render(
-  <React.StrictMode>
-    <ThirdwebProvider desiredChainId={activeChainId}>
-      <App />
-    </ThirdwebProvider>
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    <ChakraProvider>
+        <ThirdwebProvider desiredChainId={ChainId.Goerli}>
+            <Router>
+                <App />
+            </Router>
+        </ThirdwebProvider>
+    </ChakraProvider>
+)
