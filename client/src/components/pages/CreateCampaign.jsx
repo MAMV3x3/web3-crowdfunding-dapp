@@ -23,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 const CreateCampaign = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
-    const { publishCampaign } = useStateContext();
+    const { createCampaign } = useStateContext();
   const [form, setForm] = useState({
     name: "",
     title: "",
@@ -39,19 +39,19 @@ const CreateCampaign = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     checkIfImage(form.image, async (exists) => {
-        if(exists){
-            setIsLoading(true);
-            console.log(ethers.utils.parseEther(form.goal));
-            await publishCampaign(form);
-            setIsLoading(false);
-            navigate('/');
-        } else{
-            alert('Provide valid image URL')
-            setForm({...form, image: ''})
-        }
+      if(exists) {
+        setIsLoading(true)
+        await createCampaign({ ...form, goal: ethers.utils.parseUnits(form.goal, 18)})
+        setIsLoading(false);
+        navigate('/');
+      } else {
+        alert('Provide valid image URL')
+        setForm({ ...form, image: '' });
+      }
     })
-  };
+  }
 
   return (
     <Flex
