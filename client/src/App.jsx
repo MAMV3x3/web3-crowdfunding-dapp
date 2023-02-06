@@ -58,6 +58,7 @@ const App = () => {
           <Route path='/profile' element={<Profile />} />
           <Route path='/launch-campaign' element={<CreateCampaign />} />
           <Route path='/campaign-details/:id' element={<CampaignDetails />} />
+
         </Routes>
       </Flex>
     </HStack>
