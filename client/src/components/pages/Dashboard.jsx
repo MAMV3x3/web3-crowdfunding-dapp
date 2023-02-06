@@ -50,9 +50,7 @@ const Dashboard = () => {
   return (
     <Box w="full" p="70px">
       <Flex alignContent="center" justifyContent="space-between">
-        {
-          projectCategories
-        }
+        {projectCategories}
       </Flex>
     </Box>
   )
