@@ -20,7 +20,7 @@ import {
   Button,
   Progress,
   Spacer,
-  
+
   Drawer,
   DrawerBody,
   DrawerFooter,
@@ -31,7 +31,7 @@ import {
 } from "@chakra-ui/react";
 import { transform } from 'framer-motion';
 
-
+//Prueba info de card
 let cardInfoTest = {
   "Owner" : "0x74845641561515156464",
   "Title" : "La baina",
@@ -42,6 +42,7 @@ let cardInfoTest = {
 
 }
 
+//Prueba mapeo de categorias
 let categories = [
   "Tecnologia",
   "Arte",
@@ -52,6 +53,8 @@ let categories = [
   "Otro"
 ]
 
+
+//Funcion creadora de Card (Provisionalmente con info de prueba "cardInfoTest")
 function DisplayCard(){
   return(
     <Card maxW='300px'
@@ -90,7 +93,7 @@ function DisplayCard(){
   )
 }
 
-
+//Creacion de Sector de cartas por categoria
 function DisplaySector(sector){
   return(
     <SimpleGrid spacing={1} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
