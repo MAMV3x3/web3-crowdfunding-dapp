@@ -1,56 +1,135 @@
 import React from 'react'
 import {
   Box,
-  Button,
-  Divider,
   Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanel,
+  TabPanels,
+  Card,
+  CardBody,
+  Image,
   Stack,
+  Heading,
   Text,
-  Textarea,
-} from "@chakra-ui/react";
+  Divider,
+  CardFooter,
+  SimpleGrid,
+  ButtonGroup,
+  Button,
+  Progress,
+  Spacer,
 
-let categorias = [
-  {
-    "name":"Artes",
-    "image":"https://i.pinimg.com/236x/0f/87/9a/0f879a397a001c50010b1ac8dadd559f.jpg"
-  },
-  {
-    "name":"Tecnologia",
-    "image":"https://i.pinimg.com/564x/c5/d8/6a/c5d86a3aa320bba2fb2aa90edfe1a181.jpg"
-  },
-  {
-    "name":"Emprendimiento",
-    "image":"https://i.pinimg.com/564x/ca/34/d6/ca34d6d18a6f328c631eac46b92a79d9.jpg"
-  }
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+} from "@chakra-ui/react";
+import { transform } from 'framer-motion';
+
+//Prueba info de card
+let cardInfoTest = {
+  "Owner" : "0x74845641561515156464",
+  "Title" : "La baina",
+  "Description" : "Una descripcion bien aca",
+  "Goal" : "Mucho dinero",
+  "DeadLine" : "Manana",
+  "Image" : "https://avatars.githubusercontent.com/u/84602829?v=4",
+
+}
+
+//Prueba mapeo de categorias
+let categories = [
+  "Tecnologia",
+  "Arte",
+  "Cine",
+  "Comida",
+  "Juegos",
+  "Musica",
+  "Otro"
 ]
 
-function newCategorieCard(obj){
-  let name = obj.name;
-  let imgUrl = obj.image;
+
+//Funcion creadora de Card (Provisionalmente con info de prueba "cardInfoTest")
+function DisplayCard(){
   return(
-    <Flex bgImage={imgUrl} h="200px" w="200px" alignContent="center" justifyContent='center' borderRadius="20px">
-      <Text fontSize="3xl" as="b" color="blue.300">
-        {name}
-      </Text>
-    </Flex>
+    <Card maxW='300px'
+    _hover={{
+      transform: "scale(1.02)",
+      transition : " all 0.4s ease-in-out",
+      cursor : "pointer", 
+    }}>
+      <CardBody>
+        <Image
+          src={cardInfoTest.Image}
+          alt={cardInfoTest.Title}
+          borderRadius='lg'
+        />
+        <Stack mt='6' spacing='3'>
+          <Heading size='md'>{cardInfoTest.Title}</Heading>
+          <Text>
+            {cardInfoTest.Description}
+          </Text>
+          <Text color='blue.600' fontSize='2xl'>
+            {cardInfoTest.Goal}
+            <Progress colorScheme='green' size='sm' value={20}/>
+            <Flex>
+              <Text fontSize="sm" color="green" as="b">1,000.00</Text>
+              <Spacer/>
+              <Text fontSize="sm" color="purple" as="b">{cardInfoTest.Goal}</Text>
+            </Flex>
+          </Text>
+        </Stack>
+      </CardBody>
+      <Divider />
+      <CardFooter>
+        <Text fontSize="sm">Alguna observacion por aqui, si es que tiene</Text>
+      </CardFooter>
+    </Card>
+  )
+}
+
+//Creacion de Sector de cartas por categoria
+function DisplaySector(sector){
+  return(
+    <SimpleGrid spacing={1} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+      {/* <div>{sector}</div> */}
+      {DisplayCard(sector)}
+    </SimpleGrid>
   )
 }
 
 const Dashboard = () => {
-  let projectCategories = []
-  categorias.map((val)=>{
-    projectCategories.push(newCategorieCard(val));
-  });
+  //categories array lecture
+  let dashboardCategories = []
+  let dashboardCategoriesContent = []
 
+  categories.map((val)=>{
+    dashboardCategories.push(
+      <Tab>{val}</Tab>
+    );
+    dashboardCategoriesContent.push(
+      <TabPanel>
+        {DisplaySector(val)}
+      </TabPanel>
+    );
+  })
   return (
     <Box w="full" p="70px">
       <Flex alignContent="center" justifyContent="space-between">
-        {projectCategories}
+        {/* DashBoard */}
+        <Tabs w="100%" variant='soft-rounded' colorScheme='purple'>
+          <TabList>   {/* Categories Labels*/}
+            {dashboardCategories}
+          </TabList>
+          <TabPanels> {/* Categories Content */}
+            {dashboardCategoriesContent}
+          </TabPanels>
+        </Tabs>
       </Flex>
     </Box>
   )
