@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   Box,
   Flex,
@@ -16,11 +16,12 @@ import {
   Divider,
   CardFooter,
   SimpleGrid,
+  Icon,
   ButtonGroup,
   Button,
   Progress,
   Spacer,
-
+  Avatar,
   Drawer,
   DrawerBody,
   DrawerFooter,
@@ -28,19 +29,21 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  Tag,
 } from "@chakra-ui/react";
-import { transform } from 'framer-motion';
+import { MdCalendarToday } from "react-icons/md";
+import { transform } from "framer-motion";
+import { daysLeft } from "../../utils";
 
 //Prueba info de card
 let cardInfoTest = {
-  "Owner" : "0x74845641561515156464",
-  "Title" : "La baina",
-  "Description" : "Una descripcion bien aca",
-  "Goal" : "Mucho dinero",
-  "DeadLine" : "Manana",
-  "Image" : "https://avatars.githubusercontent.com/u/84602829?v=4",
-
-}
+  Owner: "0x74845641561515156464asyudgyasgydasyi",
+  Title: "La baina",
+  Description: "lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet",
+  Goal: "Mucho dinero",
+  DeadLine: "Manana",
+  Image: "https://m.media-amazon.com/images/I/71IvgWm7IoL._AC_SY355_.jpg",
+};
 
 //Prueba mapeo de categorias
 let categories = [
@@ -50,89 +53,118 @@ let categories = [
   "Comida",
   "Juegos",
   "Musica",
-  "Otro"
-]
-
+  "Otro",
+];
 
 //Funcion creadora de Card (Provisionalmente con info de prueba "cardInfoTest")
-function DisplayCard(){
-  return(
-    <Card maxW='300px'
-    _hover={{
-      transform: "scale(1.02)",
-      transition : " all 0.4s ease-in-out",
-      cursor : "pointer", 
-    }}>
+function DisplayCard() {
+  return (
+    <Card
+      size={"md"}
+      _hover={{
+        transform: "scale(1.01)",
+        boxShadow: "lg",
+        cursor: "pointer",
+      }}
+      transition="0.3s"
+      variant="elevated"
+    >
       <CardBody>
         <Image
           src={cardInfoTest.Image}
           alt={cardInfoTest.Title}
-          borderRadius='lg'
+          borderRadius="lg"
         />
-        <Stack mt='6' spacing='3'>
-          <Heading size='md'>{cardInfoTest.Title}</Heading>
-          <Text>
-            {cardInfoTest.Description}
-          </Text>
-          <Text color='blue.600' fontSize='2xl'>
-            {cardInfoTest.Goal}
-            <Progress colorScheme='green' size='sm' value={20}/>
-            <Flex>
-              <Text fontSize="sm" color="green" as="b">1,000.00</Text>
-              <Spacer/>
-              <Text fontSize="sm" color="purple" as="b">{cardInfoTest.Goal}</Text>
-            </Flex>
-          </Text>
+        <Tag mt="5" colorScheme="purple" borderRadius="full" px="2" py="1">
+          {categories[0]}
+        </Tag>
+        <Stack mt="5" spacing="2">
+          <Heading size="md">{cardInfoTest.Title}</Heading>
+          <Text textAlign="justify">{cardInfoTest.Description}</Text>
+          <Flex alignItems="center" flexDir="row-reverse" gap={2} maxW="full">
+            <Icon as={MdCalendarToday} />
+            <Text fontSize="sm" color="gray.500" as="p" isTruncated>
+              {cardInfoTest.DeadLine}
+            </Text>
+          </Flex>
+          <Progress colorScheme="green" size="sm" value={20} />
+          <Flex>
+            <Text fontSize="sm" color="green" as="b">
+              1,000.00
+            </Text>
+            <Spacer />
+            <Text fontSize="sm" color="purple.500" as="b">
+              {cardInfoTest.Goal}
+            </Text>
+          </Flex>
+          {/* deadline  */}
         </Stack>
       </CardBody>
       <Divider />
       <CardFooter>
-        <Text fontSize="sm">Alguna observacion por aqui, si es que tiene</Text>
+        <Flex
+          alignItems="center"
+          justifyContent="space-between"
+          gap={3}
+          maxW="full"
+        >
+          <Box>
+            <Avatar
+              size="sm"
+              name={cardInfoTest.Owner}
+              src="https://bit.ly/broken-link"
+            />
+          </Box>
+          <Text fontSize="sm" color="gray.500" as="p" isTruncated>
+            {cardInfoTest.Owner}
+          </Text>
+        </Flex>
       </CardFooter>
     </Card>
-  )
+  );
 }
 
 //Creacion de Sector de cartas por categoria
-function DisplaySector(sector){
-  return(
-    <SimpleGrid spacing={1} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+function DisplaySector(sector) {
+  return (
+    <SimpleGrid
+      spacing={1}
+      templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+    >
       {/* <div>{sector}</div> */}
       {DisplayCard(sector)}
     </SimpleGrid>
-  )
+  );
 }
 
 const Dashboard = () => {
   //categories array lecture
-  let dashboardCategories = []
-  let dashboardCategoriesContent = []
+  let dashboardCategories = [];
+  let dashboardCategoriesContent = [];
 
-  categories.map((val)=>{
-    dashboardCategories.push(
-      <Tab>{val}</Tab>
-    );
-    dashboardCategoriesContent.push(
-      <TabPanel>
-        {DisplaySector(val)}
-      </TabPanel>
-    );
-  })
+  categories.map((val) => {
+    dashboardCategories.push(<Tab>{val}</Tab>);
+    dashboardCategoriesContent.push(<TabPanel>{DisplaySector(val)}</TabPanel>);
+  });
   return (
     <Box w="full" p="70px">
       <Flex alignContent="center" justifyContent="space-between">
         {/* DashBoard */}
-        <Tabs w="100%" variant='soft-rounded' colorScheme='purple'>
-          <TabList>   {/* Categories Labels*/}
+        <Tabs w="100%" variant="soft-rounded" colorScheme="purple">
+          <TabList>
+            {" "}
+            {/* Categories Labels*/}
             {dashboardCategories}
           </TabList>
-          <TabPanels> {/* Categories Content */}
+          <TabPanels>
+            {" "}
+            {/* Categories Content */}
             {dashboardCategoriesContent}
           </TabPanels>
         </Tabs>
       </Flex>
     </Box>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
