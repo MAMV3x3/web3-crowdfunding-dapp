@@ -15,25 +15,27 @@ import {
   Spacer,
   Avatar,
   Tag,
-  SimpleGrid
+  SimpleGrid,
+
 } from "@chakra-ui/react";
 import { MdCalendarToday } from "react-icons/md";
 
 
 
-//Prueba info de card
-let cardInfoTest = {
-  Owner: "0x74845641561515156464asyudgyasgydasyi",
-  Title: "La baina",
-  Description: "lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet",
-  Goal: "Mucho dinero",
-  DeadLine: "Manana",
-  Image: "https://m.media-amazon.com/images/I/71IvgWm7IoL._AC_SY355_.jpg",
+let categoriesBg = {
+  "All": "green",
+  "Tecnologia": "blue",
+  "Arte": "pink",
+  "Cine": "yellow",
+  "Comida": "cyan",
+  "Juegos": "red",
+  "Musica": "purple",
+  "Otro": "gray",
 };
 
 
 //Funcion creadora de Card (Provisionalmente con info de prueba "cardInfoTest")
-function DisplayCard(category) {
+function DisplayCard(category, data) {
     return (
       <Card
         size={"md"}
@@ -44,23 +46,25 @@ function DisplayCard(category) {
         }}
         transition="0.3s"
         variant="elevated"
+        m="2"
+        // bg={categoriesBg[category]}
       >
         <CardBody>
           <Image
-            src={cardInfoTest.Image}
-            alt={cardInfoTest.Title}
+            src={data.Image}
+            alt={data.Title}
             borderRadius="lg"
           />
-          <Tag mt="5" colorScheme="purple" borderRadius="full" px="2" py="1">
-            {category}
+          <Tag mt="5" colorScheme={categoriesBg[data.Category]} borderRadius="full" px="2" py="1">
+            {data.Category}
           </Tag>
           <Stack mt="5" spacing="2">
-            <Heading size="md">{cardInfoTest.Title}</Heading>
-            <Text textAlign="justify">{cardInfoTest.Description}</Text>
+            <Heading size="md">{data.Title}</Heading>
+            <Text textAlign="justify">{data.Description}</Text>
             <Flex alignItems="center" flexDir="row-reverse" gap={2} maxW="full">
               <Icon as={MdCalendarToday} />
               <Text fontSize="sm" color="gray.500" as="p" isTruncated>
-                {cardInfoTest.DeadLine}
+                {data.DeadLine}
               </Text>
             </Flex>
             <Progress colorScheme="green" size="sm" value={20} />
@@ -70,7 +74,7 @@ function DisplayCard(category) {
               </Text>
               <Spacer />
               <Text fontSize="sm" color="purple.500" as="b">
-                {cardInfoTest.Goal}
+                {data.Goal}
               </Text>
             </Flex>
             {/* deadline  */}
@@ -87,12 +91,12 @@ function DisplayCard(category) {
             <Box>
               <Avatar
                 size="sm"
-                name={cardInfoTest.Owner}
+                name={data.Owner}
                 src="https://bit.ly/broken-link"
               />
             </Box>
             <Text fontSize="sm" color="gray.500" as="p" isTruncated>
-              {cardInfoTest.Owner}
+              {data.Owner}
             </Text>
           </Flex>
         </CardFooter>
@@ -102,9 +106,14 @@ function DisplayCard(category) {
 
 //Creacion de Sector de cartas por categoria
 function CategoryPanel(props) {
+  let cardsArr = []
+  let data = require("../Elements/fetchReplace.json");
+  data.proof.map((val)=>{
+    cardsArr.push(DisplayCard(props.category,val));
+  });
   return (
     <SimpleGrid spacing={1} templateColumns="repeat(auto-fill, minmax(200px, 1fr))" >
-      {DisplayCard(props.category)}
+      {cardsArr}
     </SimpleGrid>
   )
 }

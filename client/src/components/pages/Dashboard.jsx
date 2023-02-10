@@ -16,6 +16,7 @@ import { daysLeft } from "../../utils";
 
 //Mapeo de categorias
 let categories = [
+  "All",
   "Tecnologia",
   "Arte",
   "Cine",
@@ -48,11 +49,12 @@ const Dashboard = () => {
             {/* Categories Labels*/}
             {dashboardCategories}
           </TabList>
-          <TabPanels>
-            {" "}
+          {/* <TabPanels> */}
+            {/* {" "} */}
             {/* Categories Content */}
-            {dashboardCategoriesContent}
-          </TabPanels>
+            {/* {dashboardCategoriesContent} */}
+          {/* </TabPanels> */}
+          <CategoryPanel category={selectedCategory} />
         </Tabs>
       </Flex>
     </Box>
