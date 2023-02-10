@@ -15,15 +15,18 @@ import {
   Stack,
   Text,
   Textarea,
+  useColorMode,
 } from "@chakra-ui/react";
 import { InfoIcon, LinkIcon } from "@chakra-ui/icons";
 import { useStateContext } from "../../context";
 import { useNavigate } from "react-router-dom";
+import { useToast } from '@chakra-ui/react'
 
 const CreateCampaign = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const { createCampaign } = useStateContext();
+    const toast = useToast();
   const [form, setForm] = useState({
     name: "",
     title: "",
@@ -47,7 +50,13 @@ const CreateCampaign = () => {
         setIsLoading(false);
         navigate('/');
       } else {
-        alert('Provide valid image URL')
+        toast({
+          title: "Image not found.",
+          description: "Please enter a valid image URL.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        })
         setForm({ ...form, image: '' });
       }
     })
@@ -64,17 +73,16 @@ const CreateCampaign = () => {
       <Box
         w="full"
         maxW="500px"
-        bg="white"
         borderRadius="3xl"
         padding={10}
         boxShadow="md"
         justifyContent="center"
         alignItems="center"
+        bg= { useColorMode().colorMode === 'light' ? "white" : "gray.800"}
       >
         <Text
           fontSize="2xl"
           fontWeight="bold"
-          color="gray.700"
           textAlign="center"
         >
           Launch a Campaign
@@ -86,11 +94,11 @@ const CreateCampaign = () => {
         alignItems="center"
         w="full"
         maxW="90%"
-        bg="white"
         borderRadius="3xl"
         padding={10}
         boxShadow="md"
         justifyContent="center"
+        bg= { useColorMode().colorMode === 'light' ? "white" : "gray.800"}
       >
         <form onSubmit={handleSubmit} style={{ width: "100%" }}>
           <Stack spacing={50}>
@@ -196,7 +204,7 @@ const CreateCampaign = () => {
           <Text
             fontSize="1xl"
             fontWeight="medium"
-            color="gray.500"
+            color={ useColorMode().colorMode === "light" ? "gray.500" : "gray.400" }
             textAlign="center"
           >
             You'll get 95% of the raised ammount.

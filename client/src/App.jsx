@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Flex, HStack, IconButton, Text } from '@chakra-ui/react'
+import { Flex, HStack, IconButton, Text, useColorModeValue } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import Sidebar from './components/Elements/Sidebar'
 import Dashboard from './components/pages/Dashboard'
@@ -14,7 +14,7 @@ const App = () => {
     <HStack
       w="full"
       h="100vh"
-      bg="gray.100"
+      bg={ useColorModeValue("gray.100", "gray.900") }
       padding={10}
     >
       <Flex
@@ -22,7 +22,7 @@ const App = () => {
         w="full"
         h="full"
         maxW={collapse ? 350 : 100}
-        bg="white"
+        bg={ useColorModeValue("white", "gray.800") }
         alignItems="center"
         padding={6}
         flexDirection="column"
@@ -31,13 +31,12 @@ const App = () => {
         transition="ease-in-out 0.5s"
       >
         <Sidebar collapse={collapse}/>
-
       </Flex>
       <Flex
         as="main"
         w="full"
         h="full"
-        bg="white"
+        bg= { useColorModeValue("white", "gray.800") }
         // alignItems="center"
         // justifyContent="center"
         // flexDirection="column"
@@ -58,7 +57,6 @@ const App = () => {
           <Route path='/profile' element={<Profile />} />
           <Route path='/launch-campaign' element={<CreateCampaign />} />
           <Route path='/campaign-details/:id' element={<CampaignDetails />} />
-
         </Routes>
       </Flex>
     </HStack>

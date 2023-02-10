@@ -3,10 +3,12 @@ import React from 'react'
 import { SunIcon, MoonIcon } from '@chakra-ui/icons'
 import { useStateContext } from '../../context'
 import { useNavigate } from 'react-router-dom'
+import { useColorMode } from '@chakra-ui/color-mode'
 
 const AvatarTheme = ({collapse}) => {
   const navigate = useNavigate();
   const { connect, address } = useStateContext();
+  const { colorMode, toggleColorMode } = useColorMode()
   return (
     <Flex
         w="full"
@@ -31,7 +33,11 @@ const AvatarTheme = ({collapse}) => {
                 }}
             />
         </Box>
-        <IconButton aria-label='' variant="ghost" icon={<SunIcon />} fontSize={25} color="gray.400" borderRadius="50%"></IconButton>
+        <IconButton 
+            onClick={toggleColorMode}
+            aria-label='' variant="ghost" icon={ 
+                colorMode === 'light' ? <MoonIcon /> : <SunIcon />
+             } fontSize={25} color="gray.400" borderRadius="50%"></IconButton>
     </Flex>
   )
 }

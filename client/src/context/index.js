@@ -29,7 +29,7 @@ export const StateContextProvider = ({ children }) => {
             title: 'Campaign created.',
             description: "Your campaign has been created.",
             status: 'success',
-            duration: 9000,
+            duration: 5000,
             isClosable: true,
           })
           console.log("contract call success", data)
@@ -39,7 +39,7 @@ export const StateContextProvider = ({ children }) => {
             title: 'Campaign creation failed.',
             description: "An error occured while creating your campaign.",
             status: 'error',
-            duration: 9000,
+            duration: 5000,
             isClosable: true,
           })
         }

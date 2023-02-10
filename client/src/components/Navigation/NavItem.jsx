@@ -1,4 +1,4 @@
-import { Box, Link, Icon, Text } from '@chakra-ui/react'
+import { Box, Link, Icon, Text, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import React from 'react'
 
 const NavItem = ({path, icon, label, collapse}) => {
@@ -9,7 +9,7 @@ const NavItem = ({path, icon, label, collapse}) => {
         my={5}
     >
         <Link 
-            href={path} gap={1} display="flex" alignItems="center" fontWeight="medium" w="full" color="gray.400" _hover={{textDecoration: 'none', color: 'black'}}
+            href={path} gap={1} display="flex" alignItems="center" fontWeight="medium" w="full" color="gray.400" _hover={{textDecoration: 'none', color: useColorModeValue('gray.600', 'gray.200')}}
             justifyContent={collapse ? "" : "center"}
             
         >
