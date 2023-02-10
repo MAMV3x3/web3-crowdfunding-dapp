@@ -40,7 +40,6 @@ function DisplayCard(category, data) {
       <Card
         size={"md"}
         _hover={{
-          transform: "scale(1.01)",
           boxShadow: "lg",
           cursor: "pointer",
         }}
