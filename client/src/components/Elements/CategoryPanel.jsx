@@ -60,7 +60,7 @@ function DisplayCard(category, data) {
           </Tag>
           <Stack mt="5" spacing="2">
             <Heading size="md">{data.Title}</Heading>
-            <Text textAlign="justify">{data.Description}</Text>
+            <Text textAlign="justify" noOfLines={5}>{data.Description}</Text>
             <Flex alignItems="center" flexDir="row-reverse" gap={2} maxW="full">
               <Icon as={MdCalendarToday} />
               <Text fontSize="sm" color="gray.500" as="p" isTruncated>
