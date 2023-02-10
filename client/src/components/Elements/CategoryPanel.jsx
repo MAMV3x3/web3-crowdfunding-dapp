@@ -47,7 +47,6 @@ function DisplayCard(category, data) {
         transition="0.3s"
         variant="elevated"
         m="2"
-        // bg={categoriesBg[category]}
       >
         <CardBody>
           <Image
@@ -112,7 +111,7 @@ function CategoryPanel(props) {
     cardsArr.push(DisplayCard(props.category,val));
   });
   return (
-    <SimpleGrid spacing={1} templateColumns="repeat(auto-fill, minmax(200px, 1fr))" >
+    <SimpleGrid spacing={1} templateColumns="repeat(auto-fill, minmax(270px, 1fr))" >
       {cardsArr}
     </SimpleGrid>
   )
