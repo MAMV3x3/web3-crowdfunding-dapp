@@ -53,6 +53,8 @@ function DisplayCard(category, data) {
             src={data.Image}
             alt={data.Title}
             borderRadius="lg"
+            objectFit="cover"
+            w="full"
           />
           <Tag mt="5" colorScheme={categoriesBg[data.Category]} borderRadius="full" px="2" py="1">
             {data.Category}
